@@ -17,17 +17,17 @@
   };
   let routeParams = {};
   let routeProps = {};
-  let isActive = false;
 
   $: if ($activeRoute && $activeRoute.route === route) {
-    routeParams = $activeRoute.params;
-    isActive = true;
-  } else {
-    isActive = false;
+    let params = $activeRoute.params;
+    if (params['*']) {
+      delete params['*'];
+    }
+    routeParams = params;
   }
 
   $: {
-    const { path, component, ...rest } = $$props;
+    const { path, component, cache, ...rest } = $$props;
     routeProps = rest;
   }
 
@@ -44,8 +44,8 @@
 
 {#if ($activeRoute !== null && $activeRoute.route === route) || cache}
   {#if component !== null}
-    <svelte:component this="{component}" location={$location} {...routeParams} {...routeProps} {isActive}  />
+    <svelte:component this="{component}" location={$location} {...routeParams} {...routeProps} />
   {:else}
-    <slot params="{routeParams}" location={$location} {isActive}></slot>
+    <slot params="{routeParams}" location={$location}></slot>
   {/if}
 {/if}
