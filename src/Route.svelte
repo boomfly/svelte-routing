@@ -17,6 +17,7 @@
   };
   let routeParams = {};
   let routeProps = {};
+  let cacheParams = {};
 
   $: if ($activeRoute && $activeRoute.route === route) {
     let params = $activeRoute.params;
@@ -24,6 +25,14 @@
       delete params['*'];
     }
     routeParams = params;
+
+    if (cache) {
+      cacheParams = {hidden: false};
+    }
+  } else {
+    if (cache) {
+      cacheParams = {hidden: true};
+    }
   }
 
   $: {
@@ -44,8 +53,8 @@
 
 {#if ($activeRoute !== null && $activeRoute.route === route) || cache}
   {#if component !== null}
-    <svelte:component this="{component}" location={$location} {...routeParams} {...routeProps} />
+    <svelte:component this="{component}" location={$location} {...routeParams} {...routeProps} {...cacheParams} />
   {:else}
-    <slot params="{routeParams}" location={$location}></slot>
+    <slot params="{routeParams}" location={$location} {...cacheParams}></slot>
   {/if}
 {/if}
