@@ -22,10 +22,8 @@
   $: if ($activeRoute && $activeRoute.route === route) {
     routeParams = $activeRoute.params;
     isActive = true;
-    console.log('isActive', isActive, cache, path)
   } else {
     isActive = false;
-    console.log('isActive', isActive, cache, path)
   }
 
   $: {
