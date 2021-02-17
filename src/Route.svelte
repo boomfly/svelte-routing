@@ -20,7 +20,7 @@
 
   $: if ($activeRoute && $activeRoute.route === route) {
     let params = $activeRoute.params;
-    if (params['*']) {
+    if (params.hasOwnProperty('*')) {
       delete params['*'];
     }
     routeParams = params;
