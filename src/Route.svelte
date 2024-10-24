@@ -24,10 +24,10 @@
         const { component: c, path, ...rest } = $$props;
         routeProps = rest;
 
-        if (c) {
-            if (c.toString().startsWith("class ")) component = c;
-            else component = c();
-        }
+        // if (c) {
+        //     if (c.toString().startsWith("class ")) component = c;
+        //     else component = c();
+        // }
 
         canUseDOM() && !$activeRoute.preserveScroll && window?.scrollTo(0, 0);
     }
