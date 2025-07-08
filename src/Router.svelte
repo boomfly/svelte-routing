@@ -27,8 +27,16 @@
 
     // If locationContext is not set, this is the topmost Router in the tree.
     // If the `url` prop is given we force the location to it.
+    let pathname
+    let search
+    if (url && url.indexOf('?') !== -1) {
+        [pathname, search] = url.split('?');
+    } else {
+        pathname = url || "/";
+        search = "";
+    }
     const location =
-        locationContext || writable(url ? { pathname: url } : history.location);
+        locationContext || writable(url ? { pathname, search } : history.location);
 
     // If routerContext is set, the routerBase of the parent Router
     // will be the base for this Router's descendants.
